@@ -1,0 +1,17 @@
+{
+  "name": "TelegramBot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.51.0",
+    "nodemailer": "^6.4.18",
+    "nodemon": "^2.0.7"
+  }
+}
