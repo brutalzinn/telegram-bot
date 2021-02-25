@@ -31,15 +31,15 @@ messages.push(msg)
 //console.log('recebi essa mensagem: ' +JSON.stringify(msg))
 }
 function checkAlive(msgatual){
-var date = new Date().getMilliseconds() 
-var messagedate = new Date(msgatual.date).getMilliseconds()
-var secondBetweenTwoDate = Math.abs(date - messagedate);
+var date = new Date() * 1000
+var messagedate = new Date(msgatual.date * 1000) 
+var secondBetweenTwoDate = Math.abs((messagedate - date) / 1000);
 console.log('msgTimestamp:' + messagedate)
 console.log('msgComputer:' + date)
 if(secondBetweenTwoDate < 3000){
     console.log('tempo limite passado')
 }
-console.log('result:' + secondBetweenTwoDate)
+console.log('result:' +  secondBetweenTwoDate)
 }
 function sendMailFromBot(msgreceived,date){
     console.log('called')

@@ -7,6 +7,6 @@ services:
     env_file:
      - dev.env
     ports:
-     - 5050:5050
+     - 8080:8080
     volumes:
      - ./:/usr/src/app
