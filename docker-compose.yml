@@ -1,0 +1,12 @@
+version: '3.0'
+services:
+  server:
+    build: .
+    container_name: boberto
+    command: npm start
+    env_file:
+     - dev.env
+    ports:
+     - 5050:5050
+    volumes:
+     - ./:/usr/src/app
