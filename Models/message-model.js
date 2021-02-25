@@ -16,11 +16,9 @@ function getuserInfo(userinfo){
  return user[indexid]
 }
 function resolve(userResponse){
-    
 console.log('resolve called' + userResponse)
 addUser(userResponse.from.id,userResponse.text)
 setuserInfo(userResponse.from.id,userResponse)  
-
 }
 function handleMessage(firstmessage, bot,msg){
  
@@ -30,6 +28,7 @@ function handleMessage(firstmessage, bot,msg){
               bot.onText(/.*/, (userResponse) => {
                 resolve(userResponse);
             bot.sendMessage(chatId,'Oá,' + userResponse.text + '. É um prazer conhecê-lo.')
+            bot.sendMessage(chatId,'Atenção, ' + userResponse.text + '.' +' Estou encaminhando suas mensagens para o Roberto.')
             bot.removeTextListener(/.*/)
             });
         })

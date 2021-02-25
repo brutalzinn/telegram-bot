@@ -24,4 +24,4 @@ const bot = new TelegramBot(token, {polling: true});
    
  
   });
-  
+  bot.on('left_chat_member', (data) => console.log(data));
