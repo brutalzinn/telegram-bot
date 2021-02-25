@@ -1,10 +1,10 @@
 {
-  "name": "TelegramBot",
+  "name": "telegrambot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon -L index.js"
   },
   "keywords": [],
   "author": "",

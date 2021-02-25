@@ -14,11 +14,7 @@ const bot = new TelegramBot(token, {polling: true});
     const chatId = msg.chat.id;
     bot.sendMessage(chatId, responses.ajudaText);
   })
-  bot.on('message', async (msg) => {
-   
-    sender.dobotLogger(msg)
-    setTimeout(sender.sendMailFromBot, 30000,bot);
-
-    // send a message to the chat acknowledging receipt of their message
-   // bot.sendMessage(chatId, 'Entendi sua mensagem');
+  bot.on('new_chat_members', async (msg) => {
+    const chatId = msg.chat.id;
+ bot.sendMessage(chatId, 'Bem-vindo', msg.username);
   });
