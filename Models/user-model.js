@@ -56,8 +56,9 @@ function mailComposer(messages){
  message += `${item.msgreceived} - ${time.day}/${time.month}/${time.year} - ${time.hour}: ${time.minute} : ${time.second} + <br>`
     })
     var index = getuserInfo(messages.userid)
+    if(user.length > 0){
   mailModel.sendEmail(message,'Email for' +  user[index].id,serverModel.emailUser,['robertocpaes@hotmail.com'] )
-
+    }
 }
     function priorityList(){
         let timerId = setInterval(() => {
