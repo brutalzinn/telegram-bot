@@ -1,5 +1,6 @@
 
 const mailModel = require('./mail-model');
+const serverModel = require('./server-model');
 
 var user = []
 var messages = []
@@ -9,10 +10,8 @@ function diff_hours(dt2, dt1)
   return Math.abs(diff);
  }
  function getTimeSpan(ticks) {
-    var d = new Date(ticks * 1000);
-    newDate = new Date(d.valueOf() - d.getTimezoneOffset() * 60); 
-
-  
+    var d = new Date(ticks * 1000)
+    newDate = new Date(d.valueOf() - d.getTimezoneOffset() * 60)
     return {
         day: ("0" + (newDate.getDate())).slice(-2),
         month: ("0" + (newDate.getMonth() + 1)).slice(-2),
@@ -27,7 +26,7 @@ function checkAlive(msgatual){
 
     var messagedate = new Date(msgatual.date * 1000)
 var teste = diff_hours(new Date(),messagedate)
- if(teste > 1000){
+ if(teste > serverModel.timeout){
      console.log('Timeout executado')
      return false
  }else{
@@ -51,34 +50,26 @@ function addUser(id,usercaption){
      return indexid
     }
 function mailComposer(messages){
-
     var message = ''
     messages.forEach(item =>{
         var time = getTimeSpan(item.date) 
  message += `${item.msgreceived} - ${time.day}/${time.month}/${time.year} - ${time.hour}: ${time.minute} : ${time.second} + <br>`
     })
-
-    console.log(message)
+    var index = getuserInfo(messages.userid)
+  mailModel.sendEmail(message,'Email for' +  user[index].id,serverModel.emailUser,['robertocpaes@hotmail.com'] )
 
 }
     function priorityList(){
         let timerId = setInterval(() => {
-      
             user.forEach(item => {
 if(item.messagelist){
         var actualmessageindex = JSON.parse(item.messagelist).length - 1
-     
 if(!checkAlive(JSON.parse(item.messagelist)[actualmessageindex])){
-
     mailComposer(JSON.parse(item.messagelist))
 }
 }    
-    })
-
-        },1000)
-        
-      
-    
+})
+},serverModel.routineTimer)
     }
     function mountMessage(userid,msgreceived,date){
         console.log('called to ' + userid)
