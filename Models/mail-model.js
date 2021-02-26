@@ -1,4 +1,5 @@
 
+const user = require('./user-model');
 const nodemailer = require('nodemailer')
 const serverModel = require('./server-model')
 let transporter = nodemailer.createTransport({
@@ -14,6 +15,7 @@ let transporter = nodemailer.createTransport({
     }
 },
 )
+
 var messages = []
 async function sendEmail(html,subject,from,arrayemails){
 
@@ -26,33 +28,26 @@ to: arrayemails
 console.log(mailSent)
 
 }
+
 function dobotLogger(msg){
 messages.push(msg)
 //console.log('recebi essa mensagem: ' +JSON.stringify(msg))
 }
-function checkAlive(msgatual){
-var date = new Date() * 1000
-var messagedate = new Date(msgatual.date * 1000) 
-var secondBetweenTwoDate = Math.abs((messagedate - date) / 1000);
-console.log('msgTimestamp:' + messagedate)
-console.log('msgComputer:' + date)
-if(secondBetweenTwoDate < 3000){
-    console.log('tempo limite passado')
-}
-console.log('result:' +  secondBetweenTwoDate)
-}
-function sendMailFromBot(msgreceived,date){
-    console.log('called')
+function sendMailFromBot(userid,msgreceived,date){
+    console.log('called to ' + userid)
 
-   messages.push({msgreceived,date})   
-   var actualmessageindex = messages.length -1
-    checkAlive(messages[actualmessageindex])
-  //  sendEmail('<h3>Enviando do bot</h3><br>'+msg,'telegram bot sender',serverModel.emailUser,['robertocpaes@gmail.com'])
+   messages.push({userid,msgreceived,date})   
 
-  //   console.log(JSON.stringify(messages))
+  var index = user.getuserInfo(userid)
+
+  user.user[index].messagelist = JSON.stringify(messages)
 
 }
+//var actualmessageindex = messages.length -1
+//checkAlive(messages[actualmessageindex])
+
 module.exports = {
 dobotLogger,
-sendMailFromBot
+sendMailFromBot,
+
       }

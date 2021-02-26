@@ -1,6 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const responses = require('./Models/response-model')
 const messageModel = require('./Models/message-model');
+const userModel = require('./Models/user-model');
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.TOKEN;
@@ -13,7 +14,11 @@ const bot = new TelegramBot(token, {polling: true});
   bot.onText(/\/start/,  (msg, match) => {
       messageModel.handleMessage(true,bot,msg)
   })
+  bot.onText(/\/recado/,  (msg, match) => {
+    messageModel.handleMessage(true,bot,msg)
+})
   bot.on('message', async (msg) => {
      messageModel.handleMessage(false,bot,msg)
   });
-  bot.on('left_chat_member', (data) => console.log(data));
+  
+  userModel.priorityList()
