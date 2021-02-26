@@ -21,7 +21,7 @@ function handleMessage(firstmessage, bot,msg){
             bot.removeTextListener(/.*/)
             bot.onText(/.*/, (messageEncaminhada) => {
               console.log(messageEncaminhada.from.id)
-                messageModel.sendMailFromBot(messageEncaminhada.from.id,messageEncaminhada.text,messageEncaminhada.date)
+                user.mountMessage(messageEncaminhada.from.id,messageEncaminhada.text,messageEncaminhada.date)
             })
             
             });

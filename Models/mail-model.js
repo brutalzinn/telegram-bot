@@ -1,5 +1,4 @@
 
-const user = require('./user-model');
 const nodemailer = require('nodemailer')
 const serverModel = require('./server-model')
 let transporter = nodemailer.createTransport({
@@ -16,7 +15,7 @@ let transporter = nodemailer.createTransport({
 },
 )
 
-var messages = []
+
 async function sendEmail(html,subject,from,arrayemails){
 
 const mailSent = await transporter.sendMail({
@@ -29,25 +28,11 @@ console.log(mailSent)
 
 }
 
-function dobotLogger(msg){
-messages.push(msg)
-//console.log('recebi essa mensagem: ' +JSON.stringify(msg))
-}
-function sendMailFromBot(userid,msgreceived,date){
-    console.log('called to ' + userid)
 
-   messages.push({userid,msgreceived,date})   
-
-  var index = user.getuserInfo(userid)
-
-  user.user[index].messagelist = JSON.stringify(messages)
-
-}
 //var actualmessageindex = messages.length -1
 //checkAlive(messages[actualmessageindex])
 
 module.exports = {
-dobotLogger,
-sendMailFromBot,
+sendEmail
 
       }
