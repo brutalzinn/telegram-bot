@@ -49,15 +49,15 @@ function addUser(id,usercaption){
     
      return indexid
     }
-function mailComposer(messages){
+function mailComposer(id,messages){
     var message = ''
     messages.forEach(item =>{
         var time = getTimeSpan(item.date) 
- message += `${item.msgreceived} - ${time.day}/${time.month}/${time.year} - ${time.hour}: ${time.minute} : ${time.second} + <br>`
+ message += `${item.msgreceived} - ${time.day}/${time.month}/${time.year} - ${time.hour}: ${time.minute} : ${time.second}<br>`
     })
-    var index = getuserInfo(messages.userid)
+
     if(user.length > 0){
-  mailModel.sendEmail(message,'Email for' +  user[index].id,serverModel.emailUser,['robertocpaes@hotmail.com'] )
+  mailModel.sendEmail(message,'Email for' + id,serverModel.emailUser,['robertocpaes@hotmail.com'] )
     }
 }
     function priorityList(){
@@ -66,7 +66,7 @@ function mailComposer(messages){
 if(item.messagelist){
         var actualmessageindex = JSON.parse(item.messagelist).length - 1
 if(!checkAlive(JSON.parse(item.messagelist)[actualmessageindex])){
-    mailComposer(JSON.parse(item.messagelist))
+    //mailComposer(item.id,JSON.parse(item.messagelist))
 }
 }    
 })
@@ -75,7 +75,7 @@ if(!checkAlive(JSON.parse(item.messagelist)[actualmessageindex])){
     function mountMessage(userid,msgreceived,date){
         console.log('called to ' + userid)
     
-       messages.push({userid,msgreceived,date})   
+       messages.push({msgreceived,date})   
     
       var index = getuserInfo(userid)
     
